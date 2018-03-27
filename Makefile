@@ -13,7 +13,14 @@ CFLAGS		=	-I./include -L./lib/my/ -lmy
 
 RM	=	rm -rf
 
-SRC	=	main.c
+SRC	=	main.c				\
+		src/init/navy_init.c		\
+		src/init/map_init.c		\
+		src/init/sig_init.c		\
+		src/display/display_map.c	\
+		src/player/players.c		\
+		src/signal/sighandler.c		\
+		src/warnings/help.c		\
 
 OBJS	=	$(SRC:.c=.o)
 

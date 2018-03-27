@@ -86,6 +86,4 @@ typedef struct fnct_s
 	void (*fptr)(va_list list);
 } fnct_t;
 
-/* NAVY */
-
 #endif /* MY_H_ */
