@@ -16,11 +16,16 @@ RM	=	rm -rf
 SRC	=	main.c				\
 		src/init/navy_init.c		\
 		src/init/map_init.c		\
+		src/init/place_ships.c		\
 		src/init/sig_init.c		\
 		src/display/display_map.c	\
+		src/game/game.c			\
+		src/game/attack.c		\
+		src/game/wait.c			\
 		src/player/players.c		\
 		src/signal/sighandler.c		\
 		src/warnings/help.c		\
+		src/warnings/invalid_map.c	\
 
 OBJS	=	$(SRC:.c=.o)
 

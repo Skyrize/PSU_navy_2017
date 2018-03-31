@@ -8,6 +8,28 @@
 #include "my.h"
 #include "navy.h"
 
+int read_and_place_ships(char **map, char *filepath)
+{
+	int fd = open(filepath, O_RDONLY);
+	char *line;
+	int i = 0;
+
+	if (fd == -1)
+		return (84);
+	line = my_get_next_line(fd);
+	for (; line; i++) {
+		if (i > 3)
+			return (84);
+		if (my_strlen(line) != 7 || place_ship(line, map) != 0)
+			return (84);
+		free(line);
+		line = my_get_next_line(fd);
+	}
+	if (i != 4)
+		return (84);
+	close(fd);
+}
+
 char **init_map(void)
 {
 	char **map = malloc(sizeof(char *) * 9);
@@ -24,11 +46,13 @@ char **init_map(void)
 	return (map);
 }
 
-int init_navy_map(void)
+int init_navy_map(char *filepath)
 {
-	navy.first.map = init_map();
-	navy.second.map = init_map();
-	if (!navy.first.map || !navy.second.map)
+	navy.my_map = init_map();
+	navy.enemy_map = init_map();
+	if (!navy.my_map || !navy.enemy_map)
+		return (84);
+	if (read_and_place_ships(navy.my_map, filepath) != 0)
 		return (84);
 	return (0);
 }

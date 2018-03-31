@@ -19,3 +19,11 @@ void display_map(char **map)
 		my_printf("\n");
 	}
 }
+
+void display_positions(char **my_map, char **enemy_map)
+{
+	my_printf("my positions:\n");
+	display_map(my_map);
+	my_printf("\nenemy's positions:\n");
+	display_map(enemy_map);
+}

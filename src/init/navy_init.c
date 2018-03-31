@@ -10,21 +10,22 @@
 
 int init_navy(int nb_args, char **args)
 {
+	navy.my_remaining = 14;
+	navy.enemy_remaining = 14;
+	navy.game_end = false;
+	navy.attack_end = false;
+	navy.error_no = 0;
 	switch (nb_args) {
 	case 2:
-		if (check_help(args[1]) != 0)
-			return (1);
-		if (start_player_one() != 0)
+		if (init_player_one(args[1]) != 0)
 			return (84);
 		break;
 	case 3:
-		if (start_player_two(my_getnbr(args[1])) != 0)
+		if (init_player_two(my_getnbr(args[1]), args[2]) != 0)
 			return (84);
 		break;
 	default:
 		return (84);
 	}
-	if (init_navy_map() != 0)
-		return (84);
 	return (0);
 }

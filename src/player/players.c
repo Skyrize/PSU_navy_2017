@@ -8,31 +8,49 @@
 #include "my.h"
 #include "navy.h"
 
-int start_player_one()
+int connect_player_one()
 {
 	struct sigaction signal_catcher = init_sig(&catch_player_two);
 
 	if (sigaction(SIGUSR1, &signal_catcher, NULL) != 0)
 		return (84);
-	navy.first.pid = getpid();
-	my_printf("my_pid: %d\n", navy.first.pid);
-	navy.first.current = true;
-	navy.second.current = false;
+	my_printf("my_pid: %d\n", getpid());
 	my_printf("waiting for enemy connection...\n");
 	pause();
-	my_printf("\nenemy connected\n");
+	my_printf("\nenemy connected\n\n");
 	return (0);
 }
 
-int start_player_two(int first_player_pid)
+int connect_player_two(int first_player_pid)
 {
-	navy.second.pid = getpid();
-	my_printf("my_pid: %d\n", navy.second.pid);
-	navy.first.current = false;
-	navy.second.current = true;
+	my_printf("my_pid: %d\n", getpid());
 	if (kill(first_player_pid, SIGUSR1) != 0)
 		return (84);
-	navy.first.pid = first_player_pid;
-	my_printf("successfully connected\n");
+	navy.enemy_pid = first_player_pid;
+	my_printf("successfully connected\n\n");
+	return (0);
+}
+
+int init_player_one(char *filepath)
+{
+	if (check_help(filepath) != 0)
+		return (1);
+	if (connect_player_one() != 0)
+		return (84);
+	if (init_navy_map(filepath) != 0)
+		return (84);
+	if (process_game(&attack, &wait_enemy_attack) != 0)
+		return (84);
+	return (0);
+}
+
+int init_player_two(int p1_pid, char *filepath)
+{
+	if (connect_player_two(p1_pid) != 0)
+		return (84);
+	if (init_navy_map(filepath) != 0)
+		return (84);
+	if (process_game(&wait_enemy_attack, &attack) != 0)
+		return (84);
 	return (0);
 }
