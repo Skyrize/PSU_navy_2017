@@ -33,24 +33,30 @@ int connect_player_two(int first_player_pid)
 
 int init_player_one(char *filepath)
 {
+	int error_no = 0;
+
 	if (check_help(filepath) != 0)
 		return (1);
 	if (connect_player_one() != 0)
 		return (84);
 	if (init_navy_map(filepath) != 0)
 		return (84);
-	if (process_game(&attack, &wait_enemy_attack) != 0)
-		return (84);
+	error_no = process_game(&attack, &wait_enemy_attack);
+	if (error_no != 0)
+		return (error_no);
 	return (0);
 }
 
 int init_player_two(int p1_pid, char *filepath)
 {
+	int error_no = 0;
+
 	if (connect_player_two(p1_pid) != 0)
 		return (84);
 	if (init_navy_map(filepath) != 0)
 		return (84);
-	if (process_game(&wait_enemy_attack, &attack) != 0)
-		return (84);
+	error_no = process_game(&wait_enemy_attack, &attack);
+	if (error_no != 0)
+		return (error_no);
 	return (0);
 }

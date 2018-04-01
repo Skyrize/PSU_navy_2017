@@ -64,6 +64,7 @@ char *my_strdup(char *);
 char *my_get_next_line(int);
 int sum_n_odd_numbers(int);
 int sum_n_even_numbers(int);
+void replace_char(char *str, char seeked, char replacement);
 
 /* MY_PRINTF */
 

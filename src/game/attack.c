@@ -54,18 +54,22 @@ int get_attack(char stock_coord[2])
 {
 	int bytes = 0;
 	char line[512];
+	bool pass = false;
 
-	my_printf("attack: ");
-	bytes = read(0, line, 511);
-	if (bytes < 0)
-		return (84);
-	line[bytes] = 0;
-	for (int i = 0; line[i]; i++)
-		if (line[i] == '\n')
-			line[i] = 0;
-	if (check_second_coord(line, stock_coord) != 0) {
-		my_printf("wrong position\n");
-		get_attack(stock_coord);
+	while (pass == false) {
+		pass = true;
+		my_printf("attack: ");
+		bytes = read(0, line, 511);
+		if (bytes < 0)
+			return (84);
+		if (bytes == 0)
+			return (1);
+		line[bytes] = 0;
+		replace_char(line, '\n', 0);
+		if (check_second_coord(line, stock_coord) != 0) {
+			my_printf("wrong position\n");
+			pass = false;
+		}
 	}
 	return (0);
 }
@@ -73,9 +77,11 @@ int get_attack(char stock_coord[2])
 int attack(void)
 {
 	char stock_coord[2];
+	int error_no = 0;
 
-	if (get_attack(stock_coord) != 0)
-		return (84);
+	error_no = get_attack(stock_coord);
+	if (error_no != 0)
+		return (error_no);
 	if (send_attack(stock_coord) != 0)
 		return (84);
 	return (0);
