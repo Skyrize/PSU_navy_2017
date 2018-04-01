@@ -9,8 +9,8 @@
 
 char *my_strcat(char *dest, char const *src)
 {
-	char *new_str = malloc(sizeof(char)
-	* (my_strlen(dest) + my_strlen(src) + 1));
+	int len = my_strlen(dest) + my_strlen(src);
+	char *new_str = malloc(sizeof(char) * (len + 1));
 	int x = 0;
 
 	if (!new_str)

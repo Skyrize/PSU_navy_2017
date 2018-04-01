@@ -31,7 +31,7 @@ char *my_strstr(char const *str, char const *to_find)
 	while (to_find[maxx] != '\0')
 		maxx = maxx + 1;
 	if (maxx == 0)
-		return ((char *) &(str[0]));
+		return ((char *)&(str[0]));
 	maxx = maxx - 1;
 	while (str[i] != '\0') {
 		if (str[i] == to_find[0])
