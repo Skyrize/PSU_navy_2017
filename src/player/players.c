@@ -8,7 +8,7 @@
 #include "my.h"
 #include "navy.h"
 
-int connect_player_one()
+int connect_player_one(void)
 {
 	struct sigaction signal_catcher = init_sig(&catch_player_two);
 
