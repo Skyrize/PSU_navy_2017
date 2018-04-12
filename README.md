@@ -7,8 +7,8 @@ You can create your own ships; they must be 4, from size 2 to 5. and in this for
  (Exemple : 2:A1:A2 with letter before the number.)
 
 TO RUN THE PROG :
-(for the player one) ./my_runner [navy_placement],
-(for the player two) ./my_runner [1st player PID] [navy_placement]
+(for the player one) ./my_navy [navy_placement],
+(for the player two) ./my_navy [1st player PID] [navy_placement]
 
                                                               COMMANDS :
                                                                
